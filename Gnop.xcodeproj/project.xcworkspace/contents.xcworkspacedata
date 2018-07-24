@@ -2,6 +2,13 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../../press-start.ttf">
+   </FileRef>
+   <Group
+      location = "container:"
+      name = "New Group">
+   </Group>
+   <FileRef
       location = "self:Gnop.xcodeproj">
    </FileRef>
 </Workspace>

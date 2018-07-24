@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CF06446021011BBF0029904D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF06445F21011BBF0029904D /* AppDelegate.swift */; };
-		CF06446221011BBF0029904D /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CF06446121011BBF0029904D /* GameScene.sks */; };
-		CF06446421011BBF0029904D /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = CF06446321011BBF0029904D /* Actions.sks */; };
 		CF06446621011BBF0029904D /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF06446521011BBF0029904D /* GameScene.swift */; };
 		CF06446821011BBF0029904D /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF06446721011BBF0029904D /* GameViewController.swift */; };
 		CF06446B21011BBF0029904D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF06446921011BBF0029904D /* Main.storyboard */; };
@@ -17,6 +14,12 @@
 		CF06447021011BBF0029904D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF06446E21011BBF0029904D /* LaunchScreen.storyboard */; };
 		CF06447B21011BBF0029904D /* GnopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF06447A21011BBF0029904D /* GnopTests.swift */; };
 		CF06448621011BBF0029904D /* GnopUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF06448521011BBF0029904D /* GnopUITests.swift */; };
+		CF06449B2101AFAE0029904D /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = CF06446321011BBF0029904D /* Actions.sks */; };
+		CF06449C2101AFC10029904D /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CF06446121011BBF0029904D /* GameScene.sks */; };
+		CF4212B12105066100CC4548 /* gifMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4212B02105066100CC4548 /* gifMaker.swift */; };
+		CF4212B5210514D300CC4548 /* gnop.gif in Resources */ = {isa = PBXBuildFile; fileRef = CF4212B4210514D300CC4548 /* gnop.gif */; };
+		CFD0E83D21023BBA00D3E22C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF06445F21011BBF0029904D /* AppDelegate.swift */; };
+		CFD0E84021023D3100D3E22C /* press-start.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFD0E83F21023CBB00D3E22C /* press-start.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,9 @@
 		CF06448121011BBF0029904D /* GnopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GnopUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF06448521011BBF0029904D /* GnopUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnopUITests.swift; sourceTree = "<group>"; };
 		CF06448721011BBF0029904D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CF4212B02105066100CC4548 /* gifMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gifMaker.swift; sourceTree = "<group>"; };
+		CF4212B4210514D300CC4548 /* gnop.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = gnop.gif; sourceTree = "<group>"; };
+		CFD0E83F21023CBB00D3E22C /* press-start.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "press-start.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,13 +109,16 @@
 		CF06445E21011BBF0029904D /* Gnop */ = {
 			isa = PBXGroup;
 			children = (
+				CFD0E83E21023C7800D3E22C /* Fonts */,
 				CF06445F21011BBF0029904D /* AppDelegate.swift */,
 				CF06446121011BBF0029904D /* GameScene.sks */,
 				CF06446321011BBF0029904D /* Actions.sks */,
 				CF06446521011BBF0029904D /* GameScene.swift */,
+				CF4212B02105066100CC4548 /* gifMaker.swift */,
 				CF06446721011BBF0029904D /* GameViewController.swift */,
 				CF06446921011BBF0029904D /* Main.storyboard */,
 				CF06446C21011BBF0029904D /* Assets.xcassets */,
+				CF4212B4210514D300CC4548 /* gnop.gif */,
 				CF06446E21011BBF0029904D /* LaunchScreen.storyboard */,
 				CF06447121011BBF0029904D /* Info.plist */,
 			);
@@ -132,6 +141,14 @@
 				CF06448721011BBF0029904D /* Info.plist */,
 			);
 			path = GnopUITests;
+			sourceTree = "<group>";
+		};
+		CFD0E83E21023C7800D3E22C /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				CFD0E83F21023CBB00D3E22C /* press-start.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,11 +258,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFD0E84021023D3100D3E22C /* press-start.ttf in Resources */,
+				CF06449B2101AFAE0029904D /* Actions.sks in Resources */,
+				CF4212B5210514D300CC4548 /* gnop.gif in Resources */,
 				CF06446B21011BBF0029904D /* Main.storyboard in Resources */,
-				CF06446221011BBF0029904D /* GameScene.sks in Resources */,
+				CF06449C2101AFC10029904D /* GameScene.sks in Resources */,
 				CF06446D21011BBF0029904D /* Assets.xcassets in Resources */,
 				CF06447021011BBF0029904D /* LaunchScreen.storyboard in Resources */,
-				CF06446421011BBF0029904D /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,9 +289,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFD0E83D21023BBA00D3E22C /* AppDelegate.swift in Sources */,
 				CF06446621011BBF0029904D /* GameScene.swift in Sources */,
 				CF06446821011BBF0029904D /* GameViewController.swift in Sources */,
-				CF06446021011BBF0029904D /* AppDelegate.swift in Sources */,
+				CF4212B12105066100CC4548 /* gifMaker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,7 +459,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HRXGY63Y6S;
 				INFOPLIST_FILE = Gnop/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TG.Gnop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -453,7 +475,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HRXGY63Y6S;
 				INFOPLIST_FILE = Gnop/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TG.Gnop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
