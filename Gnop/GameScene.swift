@@ -14,6 +14,8 @@ import GameplayKit
 
 let ballRadius = 20
 
+var winner = String()
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var score = [Int]()
@@ -34,6 +36,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var enemyMode = CGVector(dx: 95, dy : 60)
 
     let toPlay = SKLabelNode(fontNamed: "Press Start")
+    let toWin = SKLabelNode(fontNamed: "Press Start")
+
     
     let player = SKShapeNode(circleOfRadius: CGFloat(ballRadius))
     let enemy = SKShapeNode(circleOfRadius: CGFloat(ballRadius))
@@ -72,20 +76,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     
         
-        toPlay.text = "swipe to start game"
+        toPlay.text = "touch & drag to start"
         toPlay.fontSize = 25
-        toPlay.position = CGPoint(x: 0, y: -self.frame.height/2 + 100)
-        toPlay.fontColor = SKColor(red: 0, green: 0, blue: 0, alpha:0.5)
+        toPlay.position = CGPoint(x: 0, y: -self.frame.height/2 + 75)
+        toPlay.fontColor = SKColor.black
         self.addChild(toPlay)
+        
+        toWin.text = "first to 11 wins"
+        toWin.fontSize = 25
+        toWin.position = CGPoint(x: 0, y: -self.frame.height/2 + 125)
+        toWin.fontColor = SKColor.black
+        self.addChild(toWin)
         
         let actionL = SKAction.setTexture(leftArrowTexture, resize: true)
         leftArrow.run(actionL)
-        leftArrow.position = CGPoint(x: -290, y: -self.frame.height/2 + 110);
+        leftArrow.position = CGPoint(x: -310, y: -self.frame.height/2 + 85);
         self.addChild(leftArrow)
         
         let actionR = SKAction.setTexture(rightArrowTexture, resize: true)
         rightArrow.run(actionR)
-        rightArrow.position = CGPoint(x: 290, y: -self.frame.height/2 + 110);
+        rightArrow.position = CGPoint(x: 310, y: -self.frame.height/2 + 85);
         self.addChild(rightArrow)
         
         
@@ -220,6 +230,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         impossibleButton.removeFromParent()
    
         toPlay.run(fade)
+        toWin.run(fade)
         leftArrow.run(fade)
         rightArrow.run(fade)
         shootPaddle(startPlayer: enemy) //they are are reversed
@@ -283,10 +294,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if playerWhoWon == player{
             score[0] += 1
             shootPaddle(startPlayer: player)
+            if score[0] == 11 {
+                winner = "player"
+                if let nextScene = WinScene(fileNamed: "WinScene"){
+                    nextScene.scaleMode = self.scaleMode
+                    view?.presentScene(nextScene)
+                }
+            }
         }
         if playerWhoWon == enemy{
             score[1] += 1
             shootPaddle(startPlayer: enemy)
+            if score[1] == 11{
+                winner = "enemy"
+                if let nextScene = WinScene(fileNamed: "WinScene"){
+                    nextScene.scaleMode = self.scaleMode
+                    view?.presentScene(nextScene)
+                }
+            }
         }
         playerScore.text = "\(score[0])"
         enemyScore.text = "\(score[1])"
