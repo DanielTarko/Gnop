@@ -7,7 +7,7 @@
 //
 
 
-//Icon made by google from www.flaticon.com
+//Icons made by google from www.flaticon.com
 
 import SpriteKit
 import GameplayKit
@@ -26,8 +26,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     let paddle = SKSpriteNode()
     
-    //var playButton = SKLabelNode(fontNamed: "Press Start")
-    
     let easyButton = SKLabelNode(fontNamed: "Press Start")
     let hardButton = SKLabelNode(fontNamed: "Press Start")
     let impossibleButton = SKLabelNode(fontNamed: "Press Start")
@@ -36,19 +34,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var enemyMode = CGVector(dx: 125, dy : 75)
 
     let toPlay = SKLabelNode(fontNamed: "Press Start")
-
     
     let player = SKShapeNode(circleOfRadius: CGFloat(ballRadius))
     let enemy = SKShapeNode(circleOfRadius: CGFloat(ballRadius))
     
     let playTexture = SKTexture(imageNamed: "play-arrow.png")
     let pauseTexture = SKTexture(imageNamed: "pause-button.png")
-    let button = SKSpriteNode()
+    let pauseButton = SKSpriteNode()
+    let playButton = SKSpriteNode()
     
     let replayTexture = SKTexture(imageNamed: "replay-arrow.png")
     let replayButton = SKSpriteNode()
-    let homeTexture = SKTexture(imageNamed: "home-button.png")
-    let homeButton = SKSpriteNode()
     
     let leftArrowTexture = SKTexture(imageNamed: "left-arrow-key.png")
     let rightArrowTexture = SKTexture(imageNamed: "right-arrow-key.png")
@@ -61,7 +57,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     let gifView = UIImageView()
     
-   // let seq = SKAction()
     let fade = SKAction.fadeAlpha(to: 0, duration: 0.5)
     
     override func didMove(to view: SKView) {
@@ -72,7 +67,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         gifView.frame = CGRect(x: 0, y: 30, width: self.frame.width/2, height: self.frame.width/2)
         gifView.loadGif(name: "gnop")
+        gifView.animationRepeatCount = 1
         view.addSubview(gifView)
+        
+
         
         
         
@@ -94,43 +92,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         
-        
-       /* playButton.text = "PLAY"
-        playButton.fontSize = 100
-        playButton.position = CGPoint(x: 0, y: -200)
-        playButton.fontColor = SKColor.black
-        self.addChild(playButton)
-         */
-        
+
         easyButton.text = "easy"
         easyButton.fontSize = 80
-        easyButton.position = CGPoint(x: 0, y: -175)
+        easyButton.position = CGPoint(x: 0, y: -195)
         easyButton.fontColor = SKColor.black
         self.addChild(easyButton)
         
         hardButton.text = "hard"
         hardButton.fontSize = 60
-        hardButton.position = CGPoint(x: 0, y: -300)
+        hardButton.position = CGPoint(x: 0, y: -320)
         hardButton.fontColor = SKColor(red: 0, green: 0, blue: 0, alpha:0.5)
         self.addChild(hardButton)
         
         impossibleButton.text = "impossible"
         impossibleButton.fontSize = 60
-        impossibleButton.position = CGPoint(x: 0, y: -425)
+        impossibleButton.position = CGPoint(x: 0, y: -440)
         impossibleButton.fontColor = SKColor(red: 0, green: 0, blue: 0, alpha:0.5)
         self.addChild(impossibleButton)
-        
+ 
         
         let action = SKAction.setTexture(pauseTexture, resize: true)
-        button.run(action)
-        button.position = CGPoint(x: self.frame.width/2 - 35, y: self.frame.height/2 - 40);
+        pauseButton.run(action)
+        pauseButton.position = CGPoint(x: self.frame.width/2 - 35, y: self.frame.height/2 - 40);
+        
+        let playaction = SKAction.setTexture(playTexture, resize: true)
+        playButton.run(playaction)
+        playButton.position = CGPoint(x: -100, y: 300);
         
         let replayButtonAction = SKAction.setTexture(replayTexture, resize: true)
         replayButton.run(replayButtonAction)
-        replayButton.position = CGPoint(x: self.frame.width/2 - 35, y: self.frame.height/2 - 130);
-        let homeButtonAction = SKAction.setTexture(homeTexture, resize: true)
-        homeButton.run(homeButtonAction)
-        homeButton.position = CGPoint(x: self.frame.width/2 - 35, y: self.frame.height/2 - 220);
+        replayButton.position = CGPoint(x: 100, y: 300);
         
         playerScore.fontSize = 75
         playerScore.position = CGPoint(x: 0, y: -125)
@@ -211,6 +203,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(enemy)
         
     }
+
     
     func startGame(){
         score = [0,0]
@@ -222,34 +215,40 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playerScore.text = "\(score[0])"
         enemyScore.text = "\(score[1])"
 
-        self.addChild(button)
+        self.addChild(pauseButton)
         
         easyButton.removeFromParent()
         hardButton.removeFromParent()
         impossibleButton.removeFromParent()
-
-        
-        
-        
+   
         toPlay.run(fade)
         leftArrow.run(fade)
         rightArrow.run(fade)
         shootPaddle(startPlayer: player)
         gameIsPaused = false
         gameStarted = true
-        
-        
-        
-        
+    }
+    
+    func pauseGame(){
+        self.physicsWorld.speed = 0.0
+        gameIsPaused = true
+        self.addChild(playButton)
+        self.addChild(replayButton)
+        self.addChild(easyButton)
+        self.addChild(hardButton)
+        self.addChild(impossibleButton)
+        pauseButton.removeFromParent()
     }
     
     func unpauseGame(){
         self.physicsWorld.speed = 1
         gameIsPaused = false
-        let action = SKAction.setTexture(pauseTexture, resize: true)
-        button.run(action)
+        playButton.removeFromParent()
         replayButton.removeFromParent()
-        homeButton.removeFromParent()
+        easyButton.removeFromParent()
+        hardButton.removeFromParent()
+        impossibleButton.removeFromParent()
+        self.addChild(pauseButton)
     }
     
     func replayGame(){
@@ -301,7 +300,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
            // if playButton.contains(location) {
             //}
-            if easyButton.contains(location) && gameStarted == false {
+            if easyButton.contains(location) && gameIsPaused == true {
                 easyButton.fontColor = SKColor.black
                 easyButton.fontSize = 80
                 hardButton.fontSize = 60
@@ -310,9 +309,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 impossibleButton.fontColor = SKColor(red: 0, green: 0, blue: 0, alpha:0.5)
                 playerMode = CGVector(dx: -95, dy : -60)
                 enemyMode = CGVector(dx: 95, dy : 60)
+                if gameStarted == true{
+                    shootPaddle(startPlayer: player)
+                }
 
             }
-            else if hardButton.contains(location) && gameStarted == false{
+            else if hardButton.contains(location) && gameIsPaused == true{
                 hardButton.fontColor = SKColor.black
                 hardButton.fontSize = 80
                 easyButton.fontSize = 60
@@ -323,9 +325,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 easiness = 0.02
                 playerMode = CGVector(dx: -125, dy : -75)
                 enemyMode = CGVector(dx: 125, dy : 75)
+                if gameStarted == true{
+                    shootPaddle(startPlayer: player)
+                }
 
             }
-            else if impossibleButton.contains(location) && gameStarted == false{
+            else if impossibleButton.contains(location) && gameIsPaused == true{
                 impossibleButton.fontColor = SKColor.black
                 impossibleButton.fontSize = 75
                 easyButton.fontSize = 60
@@ -336,29 +341,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 easiness = 0
                 playerMode = CGVector(dx: -200, dy : -150)
                 enemyMode = CGVector(dx: 200, dy : 150)
+                if gameStarted == true{
+                    shootPaddle(startPlayer: player)
+                }
 
             }
-            else if button.contains(location) {
-                if gameIsPaused == false{ //pause
-
-                    self.physicsWorld.speed = 0.0
-                    gameIsPaused = true
-                    let action = SKAction.setTexture(playTexture, resize: true)
-                    button.run(action)
-                    self.addChild(replayButton)
-                    self.addChild(homeButton)
-
-                }
-                else { //unpause
-                    unpauseGame()
-                }
+            if pauseButton.contains(location) {
+              //pause
+                pauseGame()
+               
+            }
+            else if playButton.contains(location){
+                unpauseGame()
             }
             else if replayButton.contains(location) && gameIsPaused==true{
                 replayGame()
             }
-            else if homeButton.contains(location){
-                
-            }
+
             else if location.x > -self.frame.width / 2 + CGFloat(ballRadius)*2 && location.x < self.frame.width / 2 - CGFloat(ballRadius){
                 if gameIsPaused == false{
                 player.run(SKAction.moveTo(x: location.x, duration: 0))
