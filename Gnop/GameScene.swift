@@ -30,8 +30,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let hardButton = SKLabelNode(fontNamed: "Press Start")
     let impossibleButton = SKLabelNode(fontNamed: "Press Start")
     var easiness = 0.04
-    var playerMode = CGVector(dx: -125, dy : -75)
-    var enemyMode = CGVector(dx: 125, dy : 75)
+    var playerMode = CGVector(dx: -95, dy : -60)
+    var enemyMode = CGVector(dx: 95, dy : 60)
 
     let toPlay = SKLabelNode(fontNamed: "Press Start")
     
@@ -70,24 +70,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gifView.animationRepeatCount = 1
         view.addSubview(gifView)
         
-
-        
-        
+    
         
         toPlay.text = "swipe to start game"
-        toPlay.fontSize = 30
-        toPlay.position = CGPoint(x: 0, y: -self.frame.height/2 + 50)
+        toPlay.fontSize = 25
+        toPlay.position = CGPoint(x: 0, y: -self.frame.height/2 + 100)
         toPlay.fontColor = SKColor(red: 0, green: 0, blue: 0, alpha:0.5)
         self.addChild(toPlay)
         
         let actionL = SKAction.setTexture(leftArrowTexture, resize: true)
         leftArrow.run(actionL)
-        leftArrow.position = CGPoint(x: -330, y: -self.frame.height/2 + 60);
+        leftArrow.position = CGPoint(x: -290, y: -self.frame.height/2 + 110);
         self.addChild(leftArrow)
         
         let actionR = SKAction.setTexture(rightArrowTexture, resize: true)
         rightArrow.run(actionR)
-        rightArrow.position = CGPoint(x: 330, y: -self.frame.height/2 + 65);
+        rightArrow.position = CGPoint(x: 290, y: -self.frame.height/2 + 110);
         self.addChild(rightArrow)
         
         
@@ -95,41 +93,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         easyButton.text = "easy"
         easyButton.fontSize = 80
-        easyButton.position = CGPoint(x: 0, y: -195)
+        easyButton.position = CGPoint(x: 0, y: -120)
         easyButton.fontColor = SKColor.black
         self.addChild(easyButton)
         
         hardButton.text = "hard"
         hardButton.fontSize = 60
-        hardButton.position = CGPoint(x: 0, y: -320)
+        hardButton.position = CGPoint(x: 0, y: -245)
         hardButton.fontColor = SKColor(red: 0, green: 0, blue: 0, alpha:0.5)
         self.addChild(hardButton)
         
         impossibleButton.text = "impossible"
         impossibleButton.fontSize = 60
-        impossibleButton.position = CGPoint(x: 0, y: -440)
+        impossibleButton.position = CGPoint(x: 0, y: -360)
         impossibleButton.fontColor = SKColor(red: 0, green: 0, blue: 0, alpha:0.5)
         self.addChild(impossibleButton)
  
         
         let action = SKAction.setTexture(pauseTexture, resize: true)
         pauseButton.run(action)
-        pauseButton.position = CGPoint(x: self.frame.width/2 - 35, y: self.frame.height/2 - 40);
+        pauseButton.position = CGPoint(x: self.frame.width/2 - 45, y: self.frame.height/2 - 50)
         
         let playaction = SKAction.setTexture(playTexture, resize: true)
         playButton.run(playaction)
-        playButton.position = CGPoint(x: -100, y: 300);
+        playButton.position = CGPoint(x: -100, y: 400);
         
         let replayButtonAction = SKAction.setTexture(replayTexture, resize: true)
         replayButton.run(replayButtonAction)
-        replayButton.position = CGPoint(x: 100, y: 300);
+        replayButton.position = CGPoint(x: 100, y: 400);
         
         playerScore.fontSize = 75
-        playerScore.position = CGPoint(x: 0, y: -125)
+        playerScore.position = CGPoint(x: 0, y: -25)
         playerScore.fontColor = SKColor(red: 0, green: 0, blue: 0, alpha:0.5)
         
         enemyScore.fontSize = 75
-        enemyScore.position = CGPoint(x: 0, y: 50)
+        enemyScore.position = CGPoint(x: 0, y: 150)
         enemyScore.fontColor = SKColor(red: 0, green: 0, blue: 0, alpha:0.5)
         
         //Set physics bodies for sides of screen
@@ -178,7 +176,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         paddle.physicsBody?.collisionBitMask =  ballCategory
         self.addChild(paddle)
         
-        player.position = CGPoint(x: 0, y: -self.frame.height/2 + 150)
+        player.position = CGPoint(x: 0, y: -self.frame.height/2 + 225)
         player.fillColor = SKColor.black
         player.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(ballRadius))
         player.physicsBody?.friction = 0
@@ -190,7 +188,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.collisionBitMask =  paddleCategory
         self.addChild(player)
         
-        enemy.position = CGPoint(x: 0, y: self.frame.height/2 - 150)
+        enemy.position = CGPoint(x: 0, y: self.frame.height/2 - 80)
         enemy.fillColor = SKColor.black
         enemy.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(ballRadius))
         enemy.physicsBody?.friction = 0
@@ -224,7 +222,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         toPlay.run(fade)
         leftArrow.run(fade)
         rightArrow.run(fade)
-        shootPaddle(startPlayer: player)
+        shootPaddle(startPlayer: enemy) //they are are reversed
         gameIsPaused = false
         gameStarted = true
     }
@@ -259,7 +257,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func shootPaddle(startPlayer: SKShapeNode){
-        paddle.position = CGPoint(x: 0, y: 0)
+        paddle.position = CGPoint(x: 0, y: 100)
         paddle.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         paddle.physicsBody?.angularVelocity = 0
         //paddle.zRotation = 0
@@ -307,10 +305,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 hardButton.fontColor = SKColor(red: 0, green: 0, blue: 0, alpha:0.5)
                 impossibleButton.fontSize = 60
                 impossibleButton.fontColor = SKColor(red: 0, green: 0, blue: 0, alpha:0.5)
+                
+                easiness = 0.04
                 playerMode = CGVector(dx: -95, dy : -60)
                 enemyMode = CGVector(dx: 95, dy : 60)
                 if gameStarted == true{
                     shootPaddle(startPlayer: player)
+                    resetScore()
                 }
 
             }
@@ -327,6 +328,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 enemyMode = CGVector(dx: 125, dy : 75)
                 if gameStarted == true{
                     shootPaddle(startPlayer: player)
+                    resetScore()
+
                 }
 
             }
@@ -343,6 +346,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 enemyMode = CGVector(dx: 200, dy : 150)
                 if gameStarted == true{
                     shootPaddle(startPlayer: player)
+                    resetScore()
+
                 }
 
             }
